@@ -1,0 +1,36 @@
+1) Explain the difference 
+Explain the difference between those: 
+var a; 
+let b; 
+const c; 
+
+
+Answer:
+
+Var, let and const are all means of declaration of variables in JS but differ in terms of Scope, re-declaration, re-assignment, and hoisting.
+ 
+ 1- const:
+   => usually used for variables that will have the same value throughout the code.
+   => Cannot be re-declared and re-assigned to another value
+
+
+ 2- Let :
+   => is used to declare variables that will be assigned a value and used in the code.
+   => Cannot be re-declared but can be re-assigned to another value  ex: let number=1; ( declared and initialized ) number=2; (re-assigned a new value)
+ 
+ 3- Var :
+   => Also used to declare variables that will be assigned a value and used in the code.
+   => Can be re-declared and re-assigned another value ex: var number= 2; var number='name' 
+   
+
+Scope and Hoisting:
+Both let and const have the same scope:
+   => If it's declared globally then can be accessed in a function or a block of code
+     but if it's declared locally then it's only accessible to the scope it's declared in 
+     (if the scope is a function then it is accessible in the blocks inside the fn but if it is a block then it's only accessible within this block of code)
+   => Variables declared with let and const are hoisted to the top of their scope but its value cannot be accessed before the variable is declared and assigned.
+
+
+  => While var has a global and a local scope only which means if declared globally could be accessed at any scope level ( fn or a block),
+   when it's declared locally in a fn it's accessed only within the scope of the fn and the blocks inside (if it's declared in the blocks inside the fn the var could be accessed outside of the block scope)
+  => Variables declared with var are hoisted to the top of its scope with an initialized value of undefined before the variable is declared and assigned.

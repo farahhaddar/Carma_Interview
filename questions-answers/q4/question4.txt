@@ -1,0 +1,26 @@
+4) Import behavior 
+We got a module "test.js":
+var arr = []; 
+module.exports = arr; 
+We got a module using it: 
+var test = require("./test"); 
+test.push("hello"); 
+console.log(JSON.stringify(test)); 
+We got another module using it later: 
+var test = require("./test"); 
+test.push("another"); 
+console.log(JSON.stringify(test)); 
+Explain the result in the console and why. 
+
+
+Answer:
+
+The code of the 3 modules results in: 
+-> test.js initializes an empty array.
+-> test2.js push 'hello' into the array and logs its value so  the console will log  ["hello"].
+-> test3.js push 'another' into the array and logs its value so  the console will log  ["another"].
+-> When app.js requires both test2 and test3, the console logs:
+["hello"]
+["hello", "another"]
+This outcome is due to NodeJs synchronous module loading, where module exports are shared across different parts of the code because of module caching.
+This means that when test2.js required test.js, the cached array with "hello" was returned. When test3.js required test.js, it obtained the cached array with "hello" at index zero and adds to it.

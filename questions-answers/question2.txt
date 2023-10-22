@@ -1,0 +1,38 @@
+2) Design a newsletter scheduler 
+We want to make sure a newsletter is send every day at 9am to each client, 
+at the client's local time zone. 
+Design the table you need to make sure a given client receive a newsletter every day at 9am? 
+You can assume the following: 
+!" client_id is the client id, a way to uniquely identify a client. 
+!" client_time_zone would be the client time zone, like "Europe/Paris". 
+!"We are only interested in the table structure, a description of each field and "why?" is expected.
+
+!"We are also interested to know how the algorithm would use this table in order to send at 9am, 
+assuming that code runs every single minute of the day 
+(we don't need the code, just an explanation of what steps are needed to perform this operation on time for each client). 
+
+Hint: be careful of summer/winter time zone change, like France or Malta has. 
+
+
+Answer:
+
+Table name: newsletter_scheduler
+Fields:
+=> schedule_id (Primary Key , int , auto increment ): A unique identifier for each schedule.
+=> client_id (Foreign Key , int): to establish a relationship with the client table to associate the newsletter schedule with a specific client.
+=> send_time_utc(json): The scheduled send time in UTC. This field is set to 9:00 AM UTC for each newsletter.
+=> client_time_zone(varchar(50)): Stores the client's local time zone (ex: "Europe/Paris").
+=> dst_start_date(datetime): The date when DST starts in the client's time zone. 
+=> dst_end_date (datetime): The date when DST ends in the client's time zone.
+=> dst_offset (int): The UTC offset during DST for the client's time zone which is required for conversions during DST.
+=> status (boolean): Indicates the status of the schedule ex:active or paused to manage the sending process .
+
+Steps that the table will be used in order to send at 9am, 
+assuming that code runs every single minute of the day:
+
+=> Client Data Retrieval: The algorithm begins by gathering client data, such as distinct IDs, selected time zones, and the crucial DST data.
+=> Active Status Check: Loop through the client data to identify active clients to make sure newsletters are scheduled only for those who are active.
+=> Rule Generation: Based on the initial 9:00 AM global UTC time zone setting saved as json in send_time_utc, the algorithm creates a scheduling rule for each current client.
+=> DST Adjustment: Whenever a client's location observes Daylight Saving Time, the algorithm secretly does a check to see if DST is active at that moment. It does this by comparing the date with the hidden DST start and end dates.
+=> Time Zone Adjustment: If the mission uncovers DST's covert activities, the algorithm adjusts the scheduling rule's time zone to account for the shift.
+=> Scheduling Operation: The last phase involves scheduling the newsletters so that they are sent out exactly at nine in the morning in the client's local time zone.

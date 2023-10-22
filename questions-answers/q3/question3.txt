@@ -1,0 +1,17 @@
+3) What would be the result of the following code 
+for(var i = 0; i < 100; ++i) { 
+setTimeout(function() { 
+console.log(i); 
+}, 200); 
+} 
+We are interested to know what would be the output on the console, and why. 
+Once done, explain how to change the code to get a different, more "natural" behavior. 
+
+Answer:
+
+=> The output on  the console is the number 100 logged 100 times.
+=>That is because the setTimeout function with the console.log(i)  inside the for loop is scheduled 100 times (from i=0 to i=99)  to log the value of i,
+but it will not execute immediately and will be waiting in the event queue to be executed after 200ms, so the for loop will be completed at that time and the end value of i will be 100. 
+=> The given code is trying to print the value of i  but having it in a delayed time didn't behave as expected 
+so instead of printing the actual value of i, we can use a closure to capture the current value of i for each iteration.
+Check the code of  outputIndex fn in the app.js 
