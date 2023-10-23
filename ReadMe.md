@@ -16,7 +16,8 @@ Before getting started, ensure you have the following software and dependencies 
 
 Follow these steps to clone the project and set it up:
 
-1. Clone the repository: https://github.com/farahhaddar/Carma_Interview.git
+1. Clone the repository with submodels: 
+git clone --recurse-submodules  https://github.com/farahhaddar/Carma_Interview.git
 
 2. check the first 4  questions  check the questions-answers dir each file/folder is named after the question number.
 
